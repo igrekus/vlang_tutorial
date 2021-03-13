@@ -53,7 +53,7 @@ fn sqr(n int) int {
 	return n * n
 }
 
-fn cuber(n int) int {
+fn cube(n int) int {
 	return n * n * n
 }
 
@@ -88,5 +88,27 @@ fn main() {
 	println('several args: ${sum(1,2,3,4,5)}')
 	println('several args: ${sum(...[1,2,3])}')
 
+	println('hof and anonymous functions')
+	println('pass fn to another fn - sqr(3): ${run(3, sqr)}')
 
+	double_fn := fn (n int) int {
+		return n + n
+	}
+	println('assign lambda to a variable - double(5): ${run(5, double_fn)}')
+
+	res := run(5, fn (n int) int { 
+		return 3 *n
+	})
+	println('pass lambda to hof directly - triple(5): ${res}')
+
+	println('functions are first-grade values:')
+	fn_arr := [sqr, cube]
+	fn_map := map {
+		'sqr': sqr,
+		'cube': cube,
+	}
+
+	println('array: ${fn_arr[0](2)}')
+	println('map: ${fn_map["cube"](2)}')
+	
 }
