@@ -61,6 +61,15 @@ fn run(value int, op fn (int) int) int {
 	return op(value)
 }
 
+struct Foo {
+mut:
+	val int
+}
+
+fn mut_foo (mut foo &Foo) {
+	foo.val ++
+}
+
 fn main() {
 	println('add: ${add(10, 20)}')
 	println('sub: ${sub(10, 20)}')
@@ -110,5 +119,8 @@ fn main() {
 
 	println('array: ${fn_arr[0](2)}')
 	println('map: ${fn_map["cube"](2)}')
-	
+
+	mut foo := &Foo{1}
+	mut_foo(mut foo)
+	println('mutated ref: $foo')
 }
