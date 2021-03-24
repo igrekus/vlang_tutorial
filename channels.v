@@ -1,5 +1,9 @@
 import time
 
+struct Abc {
+	x int
+}
+
 fn f_ch<T>(ch T) {
 	println(ch)
 }
@@ -66,6 +70,18 @@ fn main() {
 	} else {
 		println('chans are closed')
 	}
+
+	// chan object properties
+	a := 2.2
+	c_f64 := chan f64{}
+	res := c_f64.try_push(a)
+	println('res: $res, $c_f64.len, $c_f64.cap, $c_f64.closed')
+
+	// chan try_pop
+	mut abc := Abc{}
+	c_abc := chan Abc{}
+	res2 := c_abc.try_pop(abc)
+	println('try_pop: $res2 $abc')
 
 	
 }
