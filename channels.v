@@ -8,6 +8,17 @@ fn f_ch<T>(ch T) {
 	println(ch)
 }
 
+struct State {
+mut:
+	x int
+}
+
+fn (shared s State) set_shared() {
+	lock s {
+		s.x = 42
+	}
+}
+
 fn main() {
 	ch_int_unbuf := chan int{}   // unbuffered -- "synchronous" (?)
 	ch_f64_buff := chan f64{cap: 100}   // buffered ("async"?)
@@ -83,5 +94,14 @@ fn main() {
 	res2 := c_abc.try_pop(abc)
 	println('try_pop: $res2 $abc')
 
-	
+	// shared mutable state
+	shared s := State{x: 2}
+	rlock s {
+		println('shared $s')
+	}
+	handle := go s.set_shared()
+	handle.wait()	
+	rlock s {
+		println('shared modified $s')
+	}
 }
