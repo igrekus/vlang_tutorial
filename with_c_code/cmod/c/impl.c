@@ -1,5 +1,18 @@
-#include <stdio.h>
 #include "header.h"
+
+BOOL com_exists(int port) {
+    char buffer[7];
+    COMMCONFIG CommConfig;
+    DWORD size;
+
+    snprintf(buffer, sizeof buffer, "COM%d", port);
+    size = sizeof CommConfig;
+
+    // printf("sizeof %d", sizeof CommConfig);
+    // COM port exists if GetDefaultCommConfig returns TRUE
+    // or changes <size> to indicate COMMCONFIG buffer too small.
+    return (GetDefaultCommConfig(buffer, &CommConfig, &size) || size > sizeof CommConfig);
+}
 
 int use_struct(char *str, struct Config* cfg, int* size) {
 	printf("while in C call:");

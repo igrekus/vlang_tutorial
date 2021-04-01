@@ -16,6 +16,8 @@ fn C.hello()
 // int use_struct(char *str, struct Config* cfg, int* size);
 fn C.use_struct(charptr, &C.Config, &int) int
 
+fn C.com_exists(int) bool
+
 pub fn hello_from_cmod() {
 	println('hello from cmod')
 }
@@ -29,7 +31,10 @@ pub fn new_config(a int, b int, c int) C.Config {
 }
 
 pub fn use_struct(s string, mut cfg C.Config, mut size &int) int {
-
 	ret := C.use_struct(s.str, cfg, size)
 	return ret
+}
+
+pub fn com_exists(com int) bool {
+	return C.com_exists(com)
 }

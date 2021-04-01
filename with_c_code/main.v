@@ -14,4 +14,9 @@ fn main() {
 	res := cmod.use_struct('COM1', mut c, mut &size)
 
 	println('after C mutation in V:\n$c \n$size\n$res')
+
+	for i in 1 .. 10 {
+		mut com := cmod.com_exists(i)
+		println('com$i exists: $com')
+	}
 }
