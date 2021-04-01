@@ -6,10 +6,20 @@ module cmod
 
 fn C.hello()
 
+struct C.Config{
+	a int
+	b int
+	c int
+}
+
 pub fn hello_from_cmod() {
 	println('hello from cmod')
 }
 
-pub fn hello_from_c() {
+pub fn use_c_wrapper_to_call_c() {
 	C.hello()
+}
+
+pub fn new_config(a int, b int, c int) C.Config {
+	return C.Config{1, 2, 3}
 }

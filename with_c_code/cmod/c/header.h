@@ -1,13 +1,13 @@
 #ifndef CMOD_H
 #define CMOD_H
 
-typedef struct config_t {
+struct Config {
 	int a;
 	int b;
 	int c;
-} Config;
+};
 
-int use_struct(char *str, Config* cfg, int* size);
+int use_struct(char *str, struct Config* cfg, int* size);
 
 void hello();
 
