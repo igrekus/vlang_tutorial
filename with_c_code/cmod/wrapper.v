@@ -3,6 +3,12 @@ module cmod
 #flag -I @VROOT/c
 #flag @VROOT/c/impl.o
 #include "header.h"
+#include <windows.h>
+
+struct C._COMMCONFIG{
+}
+
+fn C.GetDefaultCommConfig(port &u16, cfg &C._COMMCONFIG, size &u32) int
 
 struct C.Config{
 mut:
@@ -37,4 +43,12 @@ pub fn use_struct(s string, mut cfg C.Config, mut size &int) int {
 
 pub fn com_exists(com int) bool {
 	return C.com_exists(com)
+}
+
+pub fn direct_api_com_exists(com int) bool {
+	port := 'COM$com'
+	mut cfg := C._COMMCONFIG{}
+	mut size := sizeof (cfg)
+
+	return C.GetDefaultCommConfig(port.to_wide(), &cfg, &size) != 0 || size > sizeof (cfg)
 }
