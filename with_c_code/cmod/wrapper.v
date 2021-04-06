@@ -46,9 +46,7 @@ pub fn com_exists(com int) bool {
 }
 
 pub fn direct_api_com_exists(com int) bool {
-	port := 'COM$com'
 	mut cfg := C._COMMCONFIG{}
 	mut size := sizeof (cfg)
-
-	return C.GetDefaultCommConfig(port.to_wide(), &cfg, &size) != 0 || size > sizeof (cfg)
+	return C.GetDefaultCommConfig('COM$com'.to_wide(), &cfg, &size) != 0 || size > sizeof (cfg)
 }
